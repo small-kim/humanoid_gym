@@ -20,9 +20,9 @@ def main():
     np.random.seed(42)
 
     model = create_networks(env)
-    optimizer = torch.optim.Adam(model.parameters(), lr=3e-4)
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 
-    agent = Agent(env, model, optimizer, gamma=0.99, epsilon=0.2, entropy_coef=0.01)
+    agent = Agent(env, model, optimizer, gamma=0.99, epsilon=0.2, entropy_coef=0.03)
 
     reward_record = []
     loss_record = []

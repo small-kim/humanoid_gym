@@ -17,7 +17,7 @@ class GaussianActor(nn.Module):
         x = F.relu(self.fc1(x))
         x = self.dropout(F.relu(self.fc2(x)))
         mean = self.mean(x)
-        std = torch.exp(self.log_std).clamp(min=1e-3, max=1.0)  # 안정화
+        std = F.softplus(self.log_std) + 1e-3  # 안정화
         return mean, std
 
 
@@ -71,7 +71,7 @@ class ActorCritic(nn.Module):
 
     def calculate_losses(self, surrogate_loss, entropy, entropy_coef, returns, values):
         policy_loss = -torch.mean(surrogate_loss + entropy_coef * entropy)
-        value_loss = F.smooth_l1_loss(values, returns).sum()
+        value_loss = F.smooth_l1_loss(values, returns.detach()).sum()
         return policy_loss, value_loss
 
 
