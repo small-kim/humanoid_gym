@@ -142,12 +142,12 @@ def main():
             plt.savefig(plot_path)
             plt.close()
 
-        # 1000번째마다: 전체 그래프를 저장함
+        # 1_0000번째마다: 전체 그래프를 저장함
         if ep % 10_000 == 0 and ep > 0:
             total_avg = np.mean(reward_record)
             clear_output(True)
             print(f'{ep}번째 에피소드 결과')
-            print(f'전체 에피소드 보상평균 = {recent_avg:.2f}')
+            print(f'전체 에피소드 보상평균 = {total_avg:.2f}')
 
             plt.figure(figsize=[12, 12])
 
